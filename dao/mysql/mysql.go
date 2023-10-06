@@ -32,3 +32,7 @@ func Init() (err error) {
 
 	return
 }
+
+func Close() {
+	_ = db.Close()
+}

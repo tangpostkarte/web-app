@@ -36,6 +36,8 @@ func main() {
 		return
 	}
 
+	defer zap.L().Sync() // 把缓冲区的日志追加到日志文件
+
 	zap.L().Debug("logger init success")
 
 	// 3, 初始化Mysql
@@ -45,12 +47,17 @@ func main() {
 		return
 	}
 
+	// 关闭数据库
+	defer mysql.Close()
+
 	// 4, 初始化Redis
 
 	if err := redis.Init(); err != nil {
 		fmt.Printf("init redis failed, err: %v", err)
 		return
 	}
+
+	defer redis.Close()
 
 	// 5, 注册路由
 

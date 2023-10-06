@@ -28,3 +28,7 @@ func Init() (err error) {
 
 	return
 }
+
+func Close() {
+	_ = rdb.Close()
+}
